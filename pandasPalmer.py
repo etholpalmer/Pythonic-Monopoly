@@ -69,8 +69,9 @@ def CreateDataFrame(file_name, idx=None, remove_nulls=True):
     df = apply_func(file_name, index_col=idx, parse_dates=True, infer_datetime_format=True)
     state.append('imported')
 
-    if idx is not None:
-        df = apply_index(df, idx=idx)
+    # TODO: Index already applied
+    #if idx is not None:
+    #    df = apply_index(df, idx=idx)
 
     if remove_nulls:
         df.dropna(inplace=True)
