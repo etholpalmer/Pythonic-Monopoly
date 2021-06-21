@@ -6,7 +6,7 @@ import base64
 from dotenv import load_dotenv, find_dotenv
 
 Is_Win           = lambda    : sys.platform=='win32' or sys.platform=='cygwin'
-Get_Env_Var      = lambda key: ((type(os.getenv(key)==str)), os.getenv(key))
+Get_Env_Var      = lambda key: ((type(os.getenv(key))==str), os.getenv(key))
 Key_Is_Encrypted = lambda key: (key[-4:].lower() == '_enc')
 
 if not Is_Win():
