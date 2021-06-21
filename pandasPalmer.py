@@ -47,7 +47,9 @@ def apply_index(df, idx=None):
     if right_type and idx_in_df:
         df.set_index(keys=idx,inplace=True)
     else:
-        print(f"Index not applied {idx} [Type {right_type}] [Subset {idx_in_df}]")
+        # TODO: Fix this later, check if the index already exists
+        #print(f"Index not applied {idx} [Type {right_type}] [Subset {idx_in_df}]")
+        pass
 
     return df
 
