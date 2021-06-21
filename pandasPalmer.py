@@ -1,5 +1,15 @@
 import pandas as pd
 import os.path as path
+# try:
+#     from urllib.parse import urlparse
+#     from urllib.request import request
+# except ImportError:
+#     try:
+#         from urlparse import urlparse
+#         from urlrequest import request
+#     except ImportError:
+#         print('Sorry ran out of options')
+
 import urllib.parse as urlparse
 import urllib.request as request
 
@@ -14,15 +24,21 @@ def import_func(file_or_url):
             }
     return extn_fns[extn]
 def is_valid_url(url):
-    rslt = urlparse(url)
+    rslt = urlparse.urlparse(url)
     is_url = all([rslt.scheme, rslt.netloc, rslt.path])
     
     is_url_valid = False
     
     if is_url:
-        with request.urlopen(url) as resp:
-            is_url_valid = (resp.staus == 200)
-
+        try:
+            with request.urlopen(url) as resp:
+                is_url_valid = (resp.status == 200)
+        except Exception as exn:
+            is_url_valid = False
+            print(f'There was an error {exn}')
+        else:
+            is_url_valid = True
+            
     return is_url_valid
 def apply_index(df, idx=None):
     right_type = type(idx) == list or type(idx) == str
@@ -63,4 +79,6 @@ def CreateDataFrame(file_name, idx=None, remove_nulls=True):
 
 if __name__ == "__main__":
     # execute only if run as a script
-    main()
+    if is_valid_url('https://www.youtube.com/watch?v=ucY6NwQTI3M&list=RDMMnQWFzMvCfLE&index=9'):
+        print(urlparse.urlparse('https://www.youtube.com/watch?v=ucY6NwQTI3M&list=RDMMnQWFzMvCfLE&index=9'))
+    #main()
